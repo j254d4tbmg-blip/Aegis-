@@ -879,4 +879,58 @@ async function startAI() {
   }, 10 * 60 * 1000);
 
   console.log("AEGIS safe startup complete");
-})();
+})();const app = express();
+app.use(express.json());const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL || "https://aegis-production-27c2.up.railway.app";
+
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>AEGIS Command Operations System</h1>
+    <p>Website Online.</p>
+    <a href="/cad">Open CAD</a><br>
+    <a href="/admin">Open Admin Panel</a><br>
+    <a href="/maintenance">Open Maintenance</a><br>
+    <a href="/health">System Health</a>
+  `);
+});
+
+app.get("/cad", (req, res) => {
+  res.send(`
+    <h1>AEGIS CAD Operations Network</h1>
+    <p>CAD Online.</p>
+    <p>No active calls detected.</p>
+    <p>FiveM Bridge: Waiting for heartbeat.</p>
+    <a href="/">Back to Website</a>
+  `);
+});
+
+app.get("/admin", (req, res) => {
+  res.send(`
+    <h1>AEGIS Command Administration Center</h1>
+    <p>Admin Panel Online.</p>
+    <a href="/">Back to Website</a>
+  `);
+});
+
+app.get("/maintenance", (req, res) => {
+  res.send(`
+    <h1>AEGIS Maintenance & Infrastructure Division</h1>
+    <p>Maintenance Panel Online.</p>
+    <a href="/health">View Health</a><br>
+    <a href="/">Back to Website</a>
+  `);
+});
+
+app.get("/health", (req, res) => {
+  res.json({
+    website: "online",
+    cad: "online",
+    admin: "online",
+    maintenance: "online",
+    baseUrl: BASE_URL
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`AEGIS running on port ${PORT}`);
+});
